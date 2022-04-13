@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入js -->
+    <script src="http://localhost:8080/resource/5s/vue.js" type="text/javascript"></script>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- v-c1oak指令（没有值）：
+        1,本质是一个特殊属性，Vue实例创建完国并接管容器后，会刚掉v-cloak属性。
+        2,使用css配合V-cloak可以解决网速慢时页面展示出(（xxx))的问题。 -->
+    <div id="root">
+        <h2 v-cloak>{{name}}</h2>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        //阻止vue在启动时生成生产提示
+
+        new Vue({
+            el:'#root',
+            data:{
+                name:'尚硅谷'
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>今日天气炎热吗{{info}}</h2>
+        <button @click="changeWeather">切换</button>
+        <hr>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false//阻止vue在启动时生成生产提示
+        const vm=new Vue({
+            el:'#root',
+            data:{
+                isHot:true,
+            },computed: {
+                info(){
+                    return this.isHot ? '炎热':'凉爽'
+                }
+            },methods: {
+                changeWeather(){
+                    this.isHot=!this.isHot
+                }
+            },watch: {
+                // 正常写法
+                // isHot:{
+                // immediate:true,//初始化时让handler调用一下
+                // deep:true,//深度监 视
+                // handler(newValue,oldValue){
+                //     console.log('isHot被修改',newValue,oldValue)
+                // }
+            // },
+                // 简写
+                // isHot(newValue,oldValue){
+                //     console.log('isHot被修改',newValue,oldValue)
+                // }
+            }
+                
+        })
+        // 正常写法
+        // vm.$watch('isHot',{
+        //             immediate:true,
+        //             deep:ture,
+        //             handler(newValue,oldValue){
+        //                 console.log('isHot被修改了',newValue,oldValue)
+        //             }
+        //         })
+        // 简写
+            vm.$watch('isHot',function(newValue,oldValue){
+                console.log('isHot被修改了',newValue,oldValue)
+            })
+    </script>
+</body>
+</html>

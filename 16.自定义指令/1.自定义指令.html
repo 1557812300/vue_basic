@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <!-- 
+        需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大18倍。
+        需求2：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。 -->
+    <div id="root">
+        <h2>当前的n值是：<span v-text="n"></span></h2>
+        <h2>放大十倍后的n值是：<span v-big="n"></span></h2>
+        <input type="text" v-fbind:value="n">
+        <button @click="n++">n++</button>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+            el:'#root',
+            data:{
+                n:1
+            },
+            //全新的配置项,定义指令
+            directives:{
+                // big元素什么时候会被调用呢？
+                // 1.指令与元素成功绑定在一起时（一上来）
+                // 2.指令所在的模板被重新解析时
+
+                //big(元素<span></span>,绑定标签元素)
+                big(element,binding){
+                    //（元素，绑定标签元素的形参（值））
+                    // console.log(element,banding.value)
+                    element.innerText=binding.value*10
+                },
+                //写一个对象：
+                fbind:{
+                    // 指令与元素绑定时（一开始页面进入时）
+                    bind(element,binding){
+                    element.value=binding.value
+                    },
+                    // 指令所在元素被插入页面时
+                    inserted(element,binding){
+                    //鼠标光标聚焦
+                    element.focus()
+                    },
+                    // 指令所在的模板被重新解析时（页面内容更新时）
+                    update(element,binding){
+                    element.value=binding.value
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <!-- 生命周期：
+        1,又名：生命周期回调函数、生命周期函数、生命周明钩子。
+        2,是什么：Vue在关键时刻播我们调用的一些特殊名称的函数。
+        3,生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。
+        4,生命周期函数中的this指向是vm或组件实例对象。 -->
+    <div id="root">
+        <!-- 动态绑定用冒号 -->
+        <!-- 里面写成对象 -->
+        <!-- {css属性：数据的名}  ---重名就写成一个，简写形式 -->
+        <!-- <h2 :style="{opcaity:opacity}">欢迎学习Vue</h2> -->
+        <h2 :style="{opacity}">欢迎学习Vue</h2>
+        <h2 v-if="a">你好啊</h2>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+            el:'#root',
+            data:{
+                //透明度
+                a:false,//不显示
+                opacity:1
+            },
+            methods: {
+
+            },
+            //挂载，Vue完成模板的解析，并把真实的DOM放入页面后（挂载）调用mounted
+            mounted(){
+                console.log('mounted')
+                setInterval(()=>{
+                 // opacity-=0.01触碰不到opacity
+                     this.opacity-=0.01
+                     if(this.opacity<=0){
+                         this.opacity=1
+                     }
+                },16)//1000是一秒,16hs
+            }
+        })
+        //通过外部定时器实现，不在模块里面，不推荐
+        //定时器：每隔一段时间，透明度减少一丢丢,写在外面不太好
+        // setInterval(()=>{
+        //     // opacity-=0.01触碰不到opacity
+        //         vm.opacity-=0.01
+        //         if(vm.opacity<=0){
+        //             vm.opacity=1
+        //         }
+        //     },16)//1000是一秒,16hs
+    </script>
+</body>
+</html>

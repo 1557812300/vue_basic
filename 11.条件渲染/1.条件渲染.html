@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 条件渲染：
+    1.v-if
+        写法：
+            (1).v-if="表达式"
+            (2),v-e1se-if="表达式"
+            (3),v-e1se="表达式"
+        适用于：切换频率较低的场景。
+        特点：不展示的DOM元素直接被移除。
+        注意：v-if可以和：v-else-if、v-else一起使用，但要求结构不能被“打断”。
+    2.v-show
+        写法：V-show="表达式"
+        适用于：切换顿率较高的场景。
+        特点：不展示的D0州元素未被移除，仅仅是使用样式隐减掉
+    3.备注：使v-if的时，元素可能无法获取到，而使用v-show一定可以获取到。 
+    -->
+    <div id="root">
+        <!-- v-show:展示的意思 （false/true）-->
+        <!-- v-show做条件渲染 -->
+        <h2 v-show="true">欢迎来到{{name}}！！！true</h2>
+        <h2 v-show="false">欢迎来到{{name}}！！！false</h2>
+        <h2 v-show="a">欢迎来到{{name}}！！！a</h2>
+        <h2 v-show="1===1">欢迎来到{{name}}！！！1===1</h2>
+        <!-- 使用v-if做条件渲染 -->
+        <h2 v-if="false">欢迎来到{{name}}！！！</h2>
+        转为bool值
+        <h2 v-if="1===1">欢迎来到{{name}}！！！</h2>
+        <br>
+        <h2>当前的值为{{n}}</h2>
+        <button @click="n++">点我+1</button>
+        <div v-show="n === 1">1显示</div>
+        <div v-show="n === 2">2显示</div>
+        <div v-show="n === 3">3显示</div>
+
+        <!-- 一组判断，多个判断，建议用v-else-if -->
+        <!-- v-else和v-else-if一起使用的，切不允许被打断 -->
+        <div v-if="n === 1">1显示</div>
+        <div v-else-if="n === 2">2显示</div>
+        <div v-else-if="n === 3">3显示</div>
+        <div v-else>4等于其他（0,4...）</div>
+        方法一<br>
+        <h2 v-show="n===1">北京</h2>
+        <h2 v-show="n===1">河北</h2>
+        <h2 v-show="n===1">山东</h2>
+        方法二<br>
+        缺点：div盒子破坏了结构<br>
+        <div v-if="n===1">
+            <h2>北京</h2>
+            <h2>河北</h2>
+            <h2>山东</h2>
+        </div>
+        方法三<br>
+        用temlpate,只能配合v-if使用，不能配合v-show <br>
+        <template v-if="n===1">
+            <h2>北京</h2>
+            <h2>河北</h2>
+            <h2>山东</h2>
+        </template>
+
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+    const vm=new Vue({
+        el:'#root',
+        data: {
+            name:'尚硅谷',
+            a:true,
+            n:0
+        }
+    })
+</script>
+</html>

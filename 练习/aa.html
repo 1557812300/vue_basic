@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <!-- 1,单向绑定(v-bind):数据只能从data流向项面。
+    2,双向你定(v-model):数据不仅能从data流向项面，还可以从项面流向data. -->
+    <div id="root">
+        单向绑定：<input type="text" v-blind:value="name">
+        双向绑定：<input type="text" v-model:value="name">
+    </div>
+    <h2 v-model:x="name">你好啊</h2>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+            el:'#root',
+            data:{
+                name:'山硅谷'
+            },
+        })
+    </script>
+</body>
+</html>

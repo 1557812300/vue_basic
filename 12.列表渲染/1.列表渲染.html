@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <!-- y-for指令
+        1,用于展示列表数据
+        2,语法：v-for="(item,index)in xxx":key="yyy"
+        3,可遍历：数组、对象、字符串（用的很少）、指定次数（用的很少） -->
+    <div id="root">
+        <!-- 遍历数组 用的多-->
+        <H2>人员列表1</H2>
+        <ul>
+            <!-- 类似for in  -->
+            <!-- key每个人，都有一个独有的id -->
+            <li v-for="p in persons" :key="p.id">
+                {{p.id}}-{{p.name}}-{{p.age}}
+            </li>
+            <li>xxxx</li>
+            <li>xxxx</li>
+        </ul>
+        <hr>
+        <h2>人员列表2</h2>
+        <ul>
+            <!-- index遍历时的索引值 -->
+            <!-- <li v-for="(p,index) in p ersons" :key="p.id"> -->
+            <li v-for="(p,index) in persons" :key="index">
+            {{p.index}}-{{p.name}}-{{p.age}}
+            </li>
+            <li>xxxx</li>
+            <li>xxxx</li>
+        </ul>
+        <!-- 遍历对象 用的多 -->
+        <h2>汽车列表1</h2>
+        <ul>
+            <li v-for="(value,key) of car">
+            {{k}}-{{value}}
+            </li>
+        </ul>
+        <!-- 遍历字符串 用得少-->
+        <h2>测试遍历字符串</h2>
+        <ul>
+            <li v-for="(a,index) of str" :key="index">
+            {{a}}-{{index}}
+            </li>
+        </ul>
+        <!-- 遍历指令次数 用得少-->
+        <h2>遍历指令次数</h2>
+        <ul>
+            <li v-for="(a,index) of 5" :key="index">
+            {{index}}-{{a}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+            el:'#root',
+            data:{
+                persons:[
+                    {id:'001',name:'大三',age:15},
+                    {id:'002',name:'大四',age:15},
+                    {id:'003',name:'大五',age:25}
+                ],
+                car:{
+                    name:'奥迪A6',
+                    pice:'25万',
+                    color:'白色'
+                },
+                str:'hello'
+            }
+        })
+    </script>
+</body>
+</html>

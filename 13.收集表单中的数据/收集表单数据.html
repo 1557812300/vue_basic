@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    
+            <!-- 收集表单数据：
+            若：<input types="text"/>,则v-model收集的是value值，用户输入的就是value值。
+            若：<input type="radio"/>,则v-model收集的是value值，且要给标签配置value值。
+            若：<input type="checkbox"/>
+            1,没有配置input的value属性，那么收集的就是checked(勾选or未勾选，是布尔值)
+            2.配置input的value属性：
+            (1)v-model的初始值是非数组，那么收集的就是checked(勾选or未勾选，是布尔值)
+            (2)v-model的初始值是数组，那么收集的的就是value组成的数组
+            备注：v-model的三个修饰符：
+            lazy:失去焦点再收集数据
+            number:输入字符串转为有效的数字
+            trim:输入首尾空格过滤 -->
+        <!-- 表单提交 -->
+        <!-- 阻止表单跳转的默认行为：prevent -->
+        <form @submit.prevent="demo">
+            <!-- //不再使用action，用ajax -->
+            <!-- label作用是获取焦点，点击文本时，可以光标跳转到文本框显示 -->
+            <label for="demo">账号：</label>
+            <input type="text" id="demo" v-model="account"><br><br>
+            密码：&nbsp;<input type="password" v-model="password"><br><br>
+            性别：
+            男<input type="radio" name="sex" v-model="sex" value="mal">
+            女<input type="radio"name="sex" v-model="sex" value="femal">
+            <br><br>
+            <!-- type="number"控制输入的不是字母啥的（html原生）
+                v-model.number="age"控制输入的是数字不是字母(vue特有的)
+             -->
+            年龄：<input type="number" v-model.number="age">
+            爱好：
+            学习<input type="checkbox" name="hobby" v-model="hobby" value="study">
+            打游戏<input type="checkbox" name="hobby" v-model="hobby" value="game">
+            吃饭<input type="checkbox" name="hobby" v-model="hobby" value="eat">            <br><br>
+            所属校区
+            <select name="" id="" v-model="city">
+                <option value="">请选择校区</option>
+                <option value="beijing">北京</option>
+                <option value="shanghai">上海</option>
+                <option value="wuhan">武汉</option>
+                <option value="shenzhen">深圳</option>
+            </select>
+            <br><br>
+            其他信息
+            <!-- v-model.lazy="other"，当输入框失去焦点的瞬间，数据提交 -->
+            <textarea v-model.lazy="other"></textarea>
+            <br><br>
+            <input type="checkbox" v-model="agree">
+            阅读并接受<a href="http://www.baidu.com">《用户协议》</a>
+            <br><br>
+            <button type="submit">提交</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+            el:'#root',
+            data:{
+                account:'',
+                password:'',
+                sex:'femal',
+                // 对于v-model面对checkbox多选框，要用数组，但不是字符串
+                // v-model是双向绑定
+                hobby:[],
+                city:'',
+                other:'',
+                agree:'',
+                age:15
+            },
+            methods: {
+                demo(){
+                    // alert(1)
+                    // console.log(this._data)
+                    console.log(JSON.stringify(this._data))
+                }
+            },
+        })
+    </script>
+</body>
+</html>
