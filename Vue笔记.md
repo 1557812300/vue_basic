@@ -375,6 +375,8 @@ data与el的两种写法
 
 ### 6.1数据代理
 
+####  Object.defineProperty(）
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -382,32 +384,81 @@ data与el的两种写法
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>回顾Object.defineproperty</title>
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
 </head>
 <body>
-    <script type="text/javascript" >
-        let number=18
-        let person={
-            name:'张三',
-            sex:'男',
-            // age:18
-        }
+     <script type="text/javascript">
+    Vue.config.productionTip = false        
+   let num=18
+   let person={
+       name:'张三',
+       sex:'男',
+       Object.defineProperty(person,'age',{
+       value:128,
+    //    控制台person==>{name: '张三', sex: '男', age: 128}
+        enumerable:true,//控制属性是否可以枚举
+        writable:true,//控制属性是否可以被修改,默认值是false
+        configurable:true, //控制属性是否可以被删除,默认值false
+        })
 
-        Object.defineProperty(person,'age',{
-        //当有人读取person的age性时，get函数（getter）就会被调用，且返回值就是age的值
-            get(){
-                console.log('有人读取了age属性')
-                return number
-            },
-        //当有人修改了age属性时，set函数（setter）就会被调用，且会收到修改的具体值
-            set(value){
-                console.log('有人读取了age属性了',value)
-                number=value
-            },
-    })
-        // console.log(person)
     </script>
 </body>
+</html>
+```
+
+![image-20220428100403681](imgs/image-20220428100403681.png)
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+    1,Vue中的数据代理：
+    通过vm对象米代理data对象中属性的操作(读/写)
+    2,Vue中数据代理的好处：
+    更加方便的操作data中的数据
+    3,基木原理：
+    通过Object,defineProperty（）把data对象中所有属性添加到vm上，
+    为每一个添加到vm上的属性，都指定一个getter/setter,
+    在getter/setter内部去操作(读/写)data中对应的属性。 -->
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        let age = 18
+        let person = {
+            name: '张三',
+            sex: '男',
+            //    age:18
+        }
+        //传3个参数
+        Object.defineProperty(person, 'age', {
+            //当有人读取person的age属性，get函数（getter）就会被调用，且返回值就是age的值
+            get() {
+                console.log('有人读取了age属性')
+                return age
+            },
+            //当有人修改了age属性时，set函数（setter）就会被调用，切回收到修改的具体指
+            set(value) {
+                console.log('有人读取了age属性', value);
+                age = value
+            }
+        })
+
+    </script>
+</body>
+
 </html>
 ```
 
@@ -415,7 +466,39 @@ data与el的两种写法
 
  1,Vue中的数据代理：
 
-  通过vm对象米代理data对象中属性的操作(读/写)
+  通过一个对象代理对另一个对象中的属性操作(读/写)。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 数据代理：通过一个对象代理对另一个对象中的属性操作 (读和写)-->
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        let obj={x:100}
+        let obj2={y:200}
+        //通过obj2访问x
+        Object.defineProperty(obj2,'x',{
+            get(){
+                return obj.x
+            },
+            set(value){
+                obj.x=value
+            }
+        })
+    </script>
+</body>
+</html>
+```
+
+![image-20220428151103389](imgs/image-20220428151103389.png)
 
   2,Vue中数据代理的好处：
 
@@ -430,32 +513,7 @@ data与el的两种写法
   在getter/setter内部去操作(读/写)data中对应的属性。
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script type="text/javascript" src="../js/vue.js"></script>
-</head>
-<body>
-    <div id="root"> 
-        <h2>学校名称：{{name}}</h2>
-        <h2>学校地址：{{address}}</h2>
-    </div>
-</body>
-<script type="text/javascript">
-    Vue.config.productionTip=false
-    const vm =new Vue({
-        el:'#root',
-    data:{
-    name:'尚硅谷',
-    address:'青岛科技园'
-    }
-    })
-</script>
-</html>
+
 ```
 
 ![image-20220402102758345](imgs/image-20220402102758345.png)
