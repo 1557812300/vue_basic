@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+   
+    <div id="root">
+        <!-- v-model:value可以简写v-model -->
+        姓：<input type="text"v-model="firstName"><br><br>
+        名：<input type="text" v-model="lastName"><br><br>
+        全名：<span>{{fullName}}</span><br><br>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm=new Vue({ 
+            el:'#root',
+            data:{
+                firstName:'张',
+                lastName:'三',
+            },
+            computed:{
+            //    简写:只考虑读取，不考虑修改时用简写
+                fullName(){
+                    console.log('get被调用了')
+                    return this.firstName+'-'+this.lastName
+                }
+               
+            }
+        })  
+    </script>
+</body>
+</html>
